@@ -1,0 +1,9 @@
+{
+  "name": "song-requestor",
+  "version": "0.0.1",
+  "description": "displays list of available songs and allows requests",
+  "dependencies": {
+    "express": "^4.6.1",
+    "socket.io": "^1.0.6"
+  }
+}

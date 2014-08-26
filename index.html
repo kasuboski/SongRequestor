@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Request a song</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; 
+      margin-left: auto;
+      margin-right: auto;
+      width: 800px;
+      }
+      #songs { list-style-type: none; margin: 0; padding: 0; }
+      #songs li { padding: 5px 10px; }
+      #songs li:nth-child(odd) { background: #eee; }
+    </style>
+  </head>
+  <body>
+    <ul id="songs">
+    	<li><span class='song'>POWER - Kanye West</span> <button class='request'>Request</button></li>
+    	<li><span class='song'>YMCA - Village People</span> <button class='request'>Request</button></li>
+    </ul>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+    	$(document).ready(function(){
+			var socket = io();
+			$( '.request' ).click(function(){
+				socket.emit('song request', $(this).parent().children('.song').text());
+			});
+			socket.on('chat message', function(msg){
+				$('#messages').append($('<li>').text(msg));
+			});
+      	});
+    </script>
+  </body>
+</html>

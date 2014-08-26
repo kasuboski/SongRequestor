@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Admin page</title>
+		    <style>
+		  	* { margin: 0; padding: 0; box-sizing: border-box; }
+		  	body { font: 13px Helvetica, Arial; 
+				margin-left: auto;
+				margin-right: auto;
+				width: 800px;
+		  	}
+		  	#songs { list-style-type: none; margin: 0; padding: 0; }
+		  	#songs li { padding: 5px 10px; }
+		  	#songs li:nth-child(odd) { background: #eee; }
+		</style>
+	</head>
+	<body>
+		<ul id='songs'></ul>
+		
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+		<script>
+			$(document).ready(function(){
+				var socket = io();
+				$(document).on("click", ".remove", function(){
+					$(this).parent().remove();
+				});
+				socket.on('song request', function(msg){
+					$('#songs').append($('<li>').text(msg));
+					$('#songs li').last().append("<button class='remove'>Remove</button>");
+					document.title = msg + '- ' + document.title;
+				});
+			});
+		</script>
+	</body>
